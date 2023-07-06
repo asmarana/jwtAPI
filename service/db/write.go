@@ -2,22 +2,14 @@ package db
 
 import (
 	"template/service/models"
+
+	"github.com/gin-gonic/gin"
 )
 
-func (db *TemplateDBImpl) CreateUserIdDB(userData *models.UserData) (*models.UserDataResponse, error) {
-	userIdResp := models.NewUserDataResponse()
-	tx := db.dbConn.MustBegin()
-	_, err := tx.NamedQuery(`INSERT INTO userdatabase(user_id,name,email,phone_number)VALUES(:user_id,:name,:email,:phone_number)`, userData)
+func (db *TemplateDBImpl) RegisterUserDB(_ *gin.Context, user *models.User) error {
+	_, err := db.dbConn.NamedQuery(`INSERT INTO userdatabase(user_id,name,email,phone_number)VALUES(:user_id,:name,:email,:phone_number)`, user)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	err = tx.Commit()
-	// if err != nil {
-	// 	return nil, db_error.NewInternalServerError(err.Error())
-	// }
-	err = db.dbConn.Get(userIdResp, `SELECT * FROM userdatabase WHERE user_id=?`, *userData.UserId)
-	// if err != nil {
-	// 	return nil, db_error.NewInternalServerError(err.Error())
-	// }
-	return userIdResp, nil
+	return nil
 }
