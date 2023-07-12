@@ -11,5 +11,4 @@ func main() {
 	router := gin.Default()
 	server.Routes(router)
 	log.Fatal(router.Run(":4747"))
-
 }

@@ -7,18 +7,20 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
+	_ "github.com/lib/pq"
 )
 
 var (
 	host         = "localhost"
 	username     = "postgres"
 	password     = "helloworld"
-	databaseName = "jwtAuthApi"
+	databaseName = "jwt"
 	port         = "5432"
 )
 
 type TemplateDB interface {
 	RegisterUserDB(_ *gin.Context, user *models.User) error
+	LoginUserDB(_ *gin.Context, user *models.User) (models.User, error)
 }
 
 type TemplateDBImpl struct {

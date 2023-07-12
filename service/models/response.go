@@ -20,3 +20,7 @@ func NewUserDataResponse() *UserDataResponse {
 		PhoneNumber: new(string),
 	}
 }
+
+type ErrorRespose struct {
+	Err string `json:"error"`
+}

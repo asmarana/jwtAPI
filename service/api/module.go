@@ -9,6 +9,8 @@ import (
 
 type TemplateAPI interface {
 	RegisterAPI(c *gin.Context, user *models.User) error
+	LoginAPI(c *gin.Context, user *models.User) error
+	GenerateJWT(user models.User) (string, error)
 }
 type TemplateAPIImpl struct {
 	db db.TemplateDB
