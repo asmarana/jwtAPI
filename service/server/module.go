@@ -8,6 +8,7 @@ import (
 
 type ServerImpl interface {
 	Register(c *gin.Context)
+	Login(c *gin.Context)
 }
 
 type Server struct {
@@ -24,4 +25,5 @@ func NewServer() *Server {
 func Routes(router *gin.Engine) {
 	server := NewServer()
 	router.POST("/register", server.Register)
+	router.GET("/login", server.Login)
 }
